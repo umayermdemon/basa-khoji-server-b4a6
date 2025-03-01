@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 import config from "../../config";
 const userSchema = new Schema<IUser, UserModel>(
   {
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     userName: { type: String, required: true, unique: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: {
       type: String,
       required: true,
@@ -24,7 +24,6 @@ const userSchema = new Schema<IUser, UserModel>(
       enum: ["active", "inactive", "suspended"],
       default: "active",
     },
-    isDeleted: { type: Boolean, required: true, default: false },
   },
   { timestamps: true },
 );

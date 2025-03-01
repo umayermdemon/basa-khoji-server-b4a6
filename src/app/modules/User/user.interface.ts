@@ -9,7 +9,6 @@ export interface IUser {
   password: string;
   role: "tenant" | "landlord";
   status: "active" | "inactive" | "suspended";
-  isDeleted: boolean;
 }
 
 export interface UserModel extends Model<IUser> {
