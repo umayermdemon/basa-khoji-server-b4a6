@@ -37,19 +37,20 @@ const UpdateListingsIntoDb = async (id: string, payload: Partial<IListing>) => {
   }
   return await Listing.findById(id);
 };
-// const DeleteUserFromDb = async (id: string) => {
-//   const result = await User.deleteOne({ _id: id });
-//   if (result?.deletedCount === 0) {
-//     throw new AppError(
-//       httpStatus.NOT_FOUND,
-//       "User not found or no changes made",
-//     );
-//   }
-//   return null;
-// };
+const DeleteListingsFromDb = async (id: string) => {
+  const result = await Listing.deleteOne({ _id: id });
+  if (result?.deletedCount === 0) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "Listing not found or no changes made",
+    );
+  }
+  return null;
+};
 
 export const LandlordServices = {
   CreateListingIntoDb,
   GetAllListingFromDb,
   UpdateListingsIntoDb,
+  DeleteListingsFromDb,
 };

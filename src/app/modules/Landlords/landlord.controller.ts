@@ -33,19 +33,20 @@ const updateListings = catchAsync(async (req, res) => {
     data: result,
   });
 });
-// const deleteUser = catchAsync(async (req, res) => {
-//   const id = req.params.id;
-//   const result = await AdminServices.DeleteUserFromDb(id);
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: "User deleted successfully",
-//     data: result,
-//   });
-// });
+const deleteUser = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await LandlordServices.DeleteListingsFromDb(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Listing deleted successfully",
+    data: result,
+  });
+});
 
 export const LandlordControllers = {
   createListing,
   getAllListing,
   updateListings,
+  deleteUser,
 };

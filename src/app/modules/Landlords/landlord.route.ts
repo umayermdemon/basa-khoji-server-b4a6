@@ -12,5 +12,6 @@ router.post(
 );
 router.get("/listings", LandlordControllers.getAllListing);
 router.put("/listings/:id", LandlordControllers.updateListings);
+router.delete("/listings/:id", LandlordControllers.deleteUser);
 
 export const LandlordRouter = router;
