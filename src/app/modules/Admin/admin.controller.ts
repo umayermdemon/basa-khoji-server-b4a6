@@ -1,10 +1,10 @@
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { UserServices } from "./admin.service";
+import { AdminServices } from "./admin.service";
 import httpStatus from "http-status";
 
 const getAllUser = catchAsync(async (req, res) => {
-  const result = await UserServices.GetAllUserFromDb();
+  const result = await AdminServices.GetAllUserFromDb();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -15,7 +15,7 @@ const getAllUser = catchAsync(async (req, res) => {
 const updateUserRole = catchAsync(async (req, res) => {
   const id = req.params.id;
   const updatedRole = req.body;
-  const result = await UserServices.UpdateUserRoleIntoDb(id, updatedRole);
+  const result = await AdminServices.UpdateUserRoleIntoDb(id, updatedRole);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -25,7 +25,7 @@ const updateUserRole = catchAsync(async (req, res) => {
 });
 const deleteUser = catchAsync(async (req, res) => {
   const id = req.params.id;
-  const result = await UserServices.DeleteUserFromDb(id);
+  const result = await AdminServices.DeleteUserFromDb(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -34,7 +34,7 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
-export const userControllers = {
+export const AdminControllers = {
   getAllUser,
   updateUserRole,
   deleteUser,

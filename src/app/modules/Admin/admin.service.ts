@@ -41,7 +41,7 @@ const DeleteUserFromDb = async (id: string) => {
   }
   return null;
 };
-export const UserServices = {
+export const AdminServices = {
   GetAllUserFromDb,
   UpdateUserRoleIntoDb,
   DeleteUserFromDb,
