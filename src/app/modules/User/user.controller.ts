@@ -14,28 +14,7 @@ const createUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const getAllUser = catchAsync(async (req, res) => {
-  const result = await UserServices.GetAllUserFromDb();
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User are retrieved successfully",
-    data: result,
-  });
-});
-const getSingleUser = catchAsync(async (req, res) => {
-  const userId = req.params.userId;
-  const result = await UserServices.GetSingleUserFromDb(userId);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "User is retrieved successfully",
-    data: result,
-  });
-});
 
 export const userControllers = {
   createUser,
-  getAllUser,
-  getSingleUser,
 };

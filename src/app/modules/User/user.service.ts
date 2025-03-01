@@ -2,8 +2,6 @@ import AppError from "../../errors/AppError";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import httpStatus from "http-status";
-import mongoose from "mongoose";
-import config from "../../config";
 const CreateUserIntoDb = async (payload: IUser) => {
   const email = payload?.email;
   const isExistUser = await User.findOne({ email });
@@ -19,17 +17,7 @@ const CreateUserIntoDb = async (payload: IUser) => {
   }
   return newUser;
 };
-const GetAllUserFromDb = async () => {
-  const user = await User.find();
-  return user;
-};
-const GetSingleUserFromDb = async (userId: string) => {
-  const user = await User.findOne({ userId });
-  return user;
-};
 
 export const UserServices = {
   CreateUserIntoDb,
-  GetAllUserFromDb,
-  GetSingleUserFromDb,
 };
