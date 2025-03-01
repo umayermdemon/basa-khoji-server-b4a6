@@ -2,14 +2,16 @@
 import { Model } from "mongoose";
 
 export interface IUser {
-  userId: string;
+  name: string;
+  userName: string;
   email: string;
+  phoneNumber: string;
   password: string;
-  role: "customer" | "admin";
-  status: "active" | "inactive" | "suspended" | "pending";
+  role: "tenant" | "landlord";
+  status: "active" | "inactive" | "suspended";
   isDeleted: boolean;
 }
 
 export interface UserModel extends Model<IUser> {
-  isUserExistsByEmail(email: string): Promise<IUser>;
+  isUserExistsByEmail(emailOrUserName: string): Promise<IUser>;
 }

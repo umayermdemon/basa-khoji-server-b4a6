@@ -3,13 +3,14 @@ import sendResponse from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
 import httpStatus from "http-status";
 
-const createCustomer = catchAsync(async (req, res) => {
-  const { password, customer } = req.body;
-  const result = await UserServices.CreateCustomerIntoDb(password, customer);
+const createUser = catchAsync(async (req, res) => {
+  const result = await UserServices.CreateUserIntoDb(req.body);
+  const role = req?.body?.role;
+  const formattedRole = role.charAt(0).toUpperCase() + role.slice(1);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "Customer created successfully",
+    message: `${formattedRole} has been created successfully`,
     data: result,
   });
 });
@@ -33,4 +34,8 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
-export const userControllers = { createCustomer, getAllUser, getSingleUser };
+export const userControllers = {
+  createUser,
+  getAllUser,
+  getSingleUser,
+};

@@ -7,7 +7,9 @@ import bcrypt from "bcrypt";
 import config from "../../config";
 
 const loginUser = async (payload: TLoginUser) => {
-  const user = await User.isUserExistsByEmail(payload?.email);
+  const user = await User.isUserExistsByEmail(
+    (payload?.email as string) || (payload?.userName as string),
+  );
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
@@ -17,7 +19,6 @@ const loginUser = async (payload: TLoginUser) => {
   }
   const isActive = user?.status;
   const statusMessages = {
-    pending: "Your account is pending approval. Please wait for verification.",
     inactive: "This user account is inactive. Please contact support.",
     suspended: "This user account is suspended due to policy violations.",
   };
@@ -38,9 +39,8 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.FORBIDDEN, "Password do not matched");
   }
   const jwtPayload = {
-    userId: user?.userId,
-    role: user?.role,
     email: user?.email,
+    role: user?.role,
   };
   const accessToken = createToken(
     jwtPayload,
@@ -53,9 +53,7 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_refresh_expires_in as string,
   );
 
-  const userId = user?.userId;
-
-  return { accessToken, refreshToken, userId };
+  return { accessToken, refreshToken };
 };
 
 export const authServices = { loginUser };

@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 import config from "../../config";
 const userSchema = new Schema<IUser, UserModel>(
   {
-    userId: { type: String, required: true, unique: true },
+    name: { type: String, required: true, unique: true },
+    userName: { type: String, required: true, unique: true },
     email: { type: String, required: true },
     password: {
       type: String,
@@ -12,15 +13,16 @@ const userSchema = new Schema<IUser, UserModel>(
       trim: true,
       select: 0,
     },
+    phoneNumber: { type: String, required: true },
     role: {
       type: String,
-      enum: ["customer", "admin"],
+      enum: ["tenant", "landlord"],
       required: true,
     },
     status: {
       type: String,
-      enum: ["active", "inactive", "suspended", "pending"],
-      default: "pending",
+      enum: ["active", "inactive", "suspended"],
+      default: "active",
     },
     isDeleted: { type: Boolean, required: true, default: false },
   },
@@ -42,8 +44,12 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-userSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await User.findOne({ email }).select("+password");
+userSchema.statics.isUserExistsByEmail = async function (
+  emailOrUserName: string,
+) {
+  return await User.findOne({
+    $or: [{ email: emailOrUserName }, { userName: emailOrUserName }],
+  }).select("+password");
 };
 
 export const User = model<IUser, UserModel>("User", userSchema);
