@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Model } from "mongoose";
+import { userRole } from "../Auth/auth.const";
 
 export interface IUser {
   name: string;
@@ -14,3 +15,5 @@ export interface IUser {
 export interface UserModel extends Model<IUser> {
   isUserExistsByEmail(emailOrUserName: string): Promise<IUser>;
 }
+
+export type TUserRole = keyof typeof userRole;

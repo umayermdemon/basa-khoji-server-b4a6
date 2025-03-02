@@ -13,10 +13,7 @@ const loginUser = async (payload: TLoginUser) => {
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
-  const isDeleted = user?.isDeleted;
-  if (isDeleted) {
-    throw new AppError(httpStatus.NOT_FOUND, "This user is deleted");
-  }
+
   const isActive = user?.status;
   const statusMessages = {
     inactive: "This user account is inactive. Please contact support.",
