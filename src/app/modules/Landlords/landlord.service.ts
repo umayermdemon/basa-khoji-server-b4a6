@@ -3,9 +3,32 @@ import httpStatus from "http-status";
 import { Listing } from "./landlord.model";
 import { IListing } from "./landlord.interface";
 import { User } from "../User/user.model";
+import { IImageFiles } from "../../interface/IImageFile";
+import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 
-const CreateListingIntoDb = async (payload: IListing) => {
+const CreateListingIntoDb = async (
+  payload: IListing,
+  houseImages: IImageFiles,
+) => {
+  const { images } = houseImages;
+  if (!images || images.length === 0) {
+    throw new AppError(httpStatus.BAD_REQUEST, "House images are required.");
+  }
+
+  const uploadedImages = await Promise.all(
+    images.map(async image => {
+      const uploadResult = await sendImageToCloudinary(
+        image.originalname,
+        image.path,
+      );
+      return uploadResult;
+    }),
+  );
+  const secure_url = uploadedImages.map((img: any) => img.secure_url);
+  payload.images = secure_url;
+
   const id = payload?.landlordId;
+
   const isExistUser = await User.findOne({ _id: id });
   if (!isExistUser) {
     throw new AppError(httpStatus.NOT_FOUND, "Landlord not found!");
@@ -14,6 +37,7 @@ const CreateListingIntoDb = async (payload: IListing) => {
   if (isExistUser?.role !== "landlord") {
     throw new AppError(httpStatus.BAD_REQUEST, "Tenant can't create listing");
   }
+
   const result = await Listing.create(payload);
   if (!result) {
     throw new AppError(httpStatus.BAD_REQUEST, "User created failed");

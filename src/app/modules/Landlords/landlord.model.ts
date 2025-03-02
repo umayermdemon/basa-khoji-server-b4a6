@@ -15,7 +15,7 @@ const listingSchema = new Schema<IListing>(
     rentAmount: { type: Number, required: true },
     bedrooms: { type: Number, required: true },
     bathrooms: { type: Number, required: true },
-    images: { type: [String], required: true },
+    images: { type: [String] },
     landlordId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     availableFrom: { type: Date, required: true },
     amenities: { type: [String], default: [] },

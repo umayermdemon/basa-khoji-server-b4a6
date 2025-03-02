@@ -19,9 +19,6 @@ const listingValidationSchema = z.object({
       .number()
       .int()
       .positive("Bathrooms must be a positive integer"),
-    images: z
-      .array(z.string().url("Each image must be a valid URL"))
-      .min(1, "At least one image is required"),
     landlordId: z.string().min(1, "Landlord ID is required"),
     availableFrom: z.string().refine(date => !isNaN(Date.parse(date)), {
       message: "Invalid date format",

@@ -2,11 +2,15 @@ import { Router } from "express";
 import { LandlordControllers } from "./landlord.controller";
 import validateRequest from "../../middlewares/validateRequest";
 import { ListingValidations } from "./landlord.validation";
+import { upload } from "../../utils/sendImageToCloudinary";
+import { parseBody } from "../../middlewares/bodyParser";
 
 const router = Router();
 
 router.post(
   "/listings",
+  upload.fields([{ name: "images" }]),
+  parseBody,
   validateRequest(ListingValidations.listingValidationSchema),
   LandlordControllers.createListing,
 );
