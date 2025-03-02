@@ -16,16 +16,16 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
     // check the token sent from client
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized(1)");
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!1");
     }
+
     // verify the token
 
     let decoded;
     try {
       decoded = verifyToken(token, config.jwt_access_token as string);
     } catch (err) {
-      console.log(err);
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized(2)");
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!2");
     }
 
     const { role, email } = decoded;
@@ -48,8 +48,9 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized(3)");
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!3");
     }
+
     req.user = decoded as JwtPayload;
     next();
   });

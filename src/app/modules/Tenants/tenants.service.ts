@@ -2,9 +2,9 @@ import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { User } from "../User/user.model";
 import { IRentalRequest } from "./tenants.interface";
-import { Request } from "./tenants.model";
+import { RentalRequest } from "./tenants.model";
 import { JwtPayload } from "jsonwebtoken";
-import { Listing } from "../Landlords/landlord.model";
+import { RentalHouseListing } from "../Landlords/landlord.model";
 import { IUser } from "../User/user.interface";
 
 const CreateRentalRequestIntoDb = async (
@@ -21,13 +21,19 @@ const CreateRentalRequestIntoDb = async (
       "Only tenants can submit rental requests.",
     );
   }
-  const isExistsListing = await Listing.findOne({ _id: payload?.listingId });
+  const isExistsListing = await RentalHouseListing.findOne({
+    _id: payload?.listingId,
+  });
   if (!isExistsListing) {
-    throw new AppError(httpStatus.NOT_FOUND, "Listing not found.");
+    throw new AppError(httpStatus.NOT_FOUND, "Rental House not found.");
+  }
+
+  if (!isExistsListing?.isAvailable) {
+    throw new AppError(httpStatus.NOT_FOUND, "Rental House is not available!");
   }
 
   payload.tenantId = isExistUser?._id;
-  const existingRequest = await Request.findOne({
+  const existingRequest = await RentalRequest.findOne({
     tenantId: payload.tenantId,
     listingId: payload.listingId,
   });
@@ -35,10 +41,10 @@ const CreateRentalRequestIntoDb = async (
   if (existingRequest) {
     throw new AppError(
       httpStatus.CONFLICT,
-      "You have already submitted a request for this listing.",
+      "You have already submitted a request for this rental house.",
     );
   }
-  const result = await Request.create(payload);
+  const result = await RentalRequest.create(payload);
   if (!result) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
@@ -55,7 +61,7 @@ const GetRentalRequestFromDb = async (currentUser: JwtPayload) => {
     throw new AppError(httpStatus.NOT_FOUND, "Tenant not found.");
   }
 
-  const result = await Request.find({ tenantId: isExistUser._id });
+  const result = await RentalRequest.find({ tenantId: isExistUser._id });
   return result;
 };
 

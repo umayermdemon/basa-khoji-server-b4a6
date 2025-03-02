@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { z } from "zod";
 
-const tenantsValidationSchema = z.object({
+const rentalRequestValidationSchema = z.object({
   body: z.object({
     listingId: z.string().refine(value => Types.ObjectId.isValid(value), {
       message: "Invalid listing ID",
@@ -19,6 +19,6 @@ const tenantsValidationSchema = z.object({
   }),
 });
 
-export const TenantsValidations = {
-  tenantsValidationSchema,
+export const RentalRequestValidations = {
+  rentalRequestValidationSchema,
 };

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { TenantsControllers } from "./tenants.controller";
 import validateRequest from "../../middlewares/validateRequest";
-import { TenantsValidations } from "./tenants.validation";
+import { RentalRequestValidations } from "./tenants.validation";
 import auth from "../../middlewares/auth";
 
 const router = Router();
@@ -9,7 +9,7 @@ const router = Router();
 router.post(
   "/requests",
   auth("tenant"),
-  validateRequest(TenantsValidations.tenantsValidationSchema),
+  validateRequest(RentalRequestValidations.rentalRequestValidationSchema),
   TenantsControllers.createRentalRequest,
 );
 router.get("/requests", auth("tenant"), TenantsControllers.getAllRentalRequest);

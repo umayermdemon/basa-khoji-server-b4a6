@@ -1,10 +1,13 @@
 import { Router } from "express";
 import { AdminControllers } from "./admin.controller";
+import auth from "../../middlewares/auth";
 
 const router = Router();
 
-router.get("/users", AdminControllers.getAllUser);
-router.put("/users/:id", AdminControllers.updateUserRole);
-router.delete("/user/:id", AdminControllers.deleteUser);
+router.get("/users", auth("admin"), AdminControllers.getAllUser);
+router.put("/users/:id", auth("admin"), AdminControllers.updateUserRole);
+router.delete("/user/:id", auth("admin"), AdminControllers.deleteUser);
+router.get("/listings", auth("admin"), AdminControllers.getAllRentalHouse);
+router.put("/listings/:id", AdminControllers.updateListing);
 
 export const AdminRouter = router;

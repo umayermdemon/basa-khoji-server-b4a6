@@ -6,15 +6,11 @@ import httpStatus from "http-status";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await authServices.loginUser(req.body);
-  const { accessToken, refreshToken } = result;
-  res.cookie("refreshToken", refreshToken, {
-    secure: config.NODE_ENV === "production",
-    httpOnly: true,
-  });
+  const { accessToken, jwtPayload } = result;
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Logged in successfully.",
+    message: `Logged in ${jwtPayload?.role} successfully.`,
     data: { accessToken },
   });
 });

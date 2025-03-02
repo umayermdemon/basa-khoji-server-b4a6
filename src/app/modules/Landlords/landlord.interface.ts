@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-export interface IListing {
+export interface IRentalHouse {
   title: string;
   location: {
     city: string;

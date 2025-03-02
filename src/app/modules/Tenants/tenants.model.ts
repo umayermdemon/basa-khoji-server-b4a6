@@ -3,7 +3,11 @@ import { IRentalRequest } from "./tenants.interface";
 
 const rentalRequestSchema = new Schema<IRentalRequest>(
   {
-    listingId: { type: Schema.Types.ObjectId, ref: "Listing", required: true },
+    listingId: {
+      type: Schema.Types.ObjectId,
+      ref: "RentalHouseListing",
+      required: true,
+    },
     tenantId: { type: Schema.Types.ObjectId, ref: "User" },
     status: {
       type: String,
@@ -21,4 +25,7 @@ const rentalRequestSchema = new Schema<IRentalRequest>(
   { timestamps: true },
 );
 
-export const Request = model<IRentalRequest>("Request", rentalRequestSchema);
+export const RentalRequest = model<IRentalRequest>(
+  "RentalRequest",
+  rentalRequestSchema,
+);

@@ -33,9 +33,32 @@ const deleteUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllRentalHouse = catchAsync(async (req, res) => {
+  const result = await AdminServices.GetAllRentalHouseFromDb();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "All rental houses are retrieved successfully",
+    data: result,
+  });
+});
+
+const updateListing = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const result = await AdminServices.UpdateListingIntoDb(id, updatedData);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Rental House updated successfully",
+    data: result,
+  });
+});
 
 export const AdminControllers = {
   getAllUser,
   updateUserRole,
   deleteUser,
+  getAllRentalHouse,
+  updateListing,
 };

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const listingValidationSchema = z.object({
+const rentalHouseValidationSchema = z.object({
   body: z.object({
     title: z.string().min(3, "Title must be at least 3 characters long"),
     location: z.object({
@@ -19,7 +19,7 @@ const listingValidationSchema = z.object({
       .number()
       .int()
       .positive("Bathrooms must be a positive integer"),
-    landlordId: z.string().min(1, "Landlord ID is required"),
+    // landlordId: z.string().min(1, "Landlord ID is required"),
     availableFrom: z.string().refine(date => !isNaN(Date.parse(date)), {
       message: "Invalid date format",
     }),
@@ -28,4 +28,6 @@ const listingValidationSchema = z.object({
   }),
 });
 
-export const ListingValidations = { listingValidationSchema };
+export const RentalHouseValidations = {
+  rentalHouseValidationSchema,
+};

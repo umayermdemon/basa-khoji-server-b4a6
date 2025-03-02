@@ -4,38 +4,67 @@ import multer from "multer";
 import AppError from "../errors/AppError";
 import httpStatus from "http-status";
 import fs from "fs";
+import path from "path";
+
+// Function to delete local file
+const deleteLocalFile = (path: string) => {
+  fs.unlink(path, err => {
+    if (err) {
+      console.error(`Error removing file: ${err}`);
+    } else {
+      console.log(`File ${path} has been successfully removed.`);
+    }
+  });
+};
+
+const deleteAllFilesInUploadFolder = () => {
+  const uploadDir = path.join(process.cwd(), "uploads");
+
+  fs.readdir(uploadDir, (err, files) => {
+    if (err) {
+      console.error("Error reading uploads folder:", err);
+      return;
+    }
+
+    for (const file of files) {
+      const filePath = path.join(uploadDir, file);
+      deleteLocalFile(filePath);
+    }
+  });
+};
+
 export const sendImageToCloudinary = async (
   imageName: string,
   path: string,
 ) => {
-  // Configuration
+  // Cloudinary Configuration
   cloudinary.config({
     cloud_name: config.cloudinary_cloud_name,
     api_key: config.cloudinary_api_key,
     api_secret: config.cloudinary_api_secret,
   });
-  // Upload an image
-  const uploadResult = await cloudinary.uploader
-    .upload(path, {
+
+  try {
+    // Upload the image
+    const uploadResult = await cloudinary.uploader.upload(path, {
       public_id: imageName,
-    })
-    .catch(error => {
-      if (error) {
-        throw new AppError(httpStatus.CONFLICT, "Image uploaded failed");
-      }
     });
-  fs.unlink(path, err => {
-    if (err) {
-      console.error(`Error removing file: ${err}`);
-      return;
-    }
 
-    console.log(`File ${path} has been successfully removed.`);
-  });
+    // Delete file after successful upload
+    deleteLocalFile(path);
+    deleteAllFilesInUploadFolder();
 
-  return uploadResult;
+    return uploadResult;
+  } catch (error) {
+    // Delete file if upload fails
+    deleteLocalFile(path);
+    deleteAllFilesInUploadFolder();
+
+    throw new AppError(httpStatus.CONFLICT, "Image upload failed");
+  }
 };
 
+// Multer Storage Configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, process.cwd() + "/uploads");

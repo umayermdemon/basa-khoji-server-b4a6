@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { IListing } from "./landlord.interface";
+import { IRentalHouse } from "./landlord.interface";
 
-const listingSchema = new Schema<IListing>(
+const listingSchema = new Schema<IRentalHouse>(
   {
     title: { type: String, required: true, unique: true },
     location: {
@@ -24,4 +24,7 @@ const listingSchema = new Schema<IListing>(
   { timestamps: true },
 );
 
-export const Listing = model<IListing>("Listing", listingSchema);
+export const RentalHouseListing = model<IRentalHouse>(
+  "RentalHouseListing",
+  listingSchema,
+);
