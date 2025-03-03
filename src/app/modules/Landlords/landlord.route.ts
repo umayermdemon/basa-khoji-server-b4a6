@@ -36,5 +36,10 @@ router.get(
   auth("landlord"),
   LandlordControllers.getAllRentalHouseByLandlord,
 );
+router.put(
+  "/requests/:id",
+  auth("landlord"),
+  LandlordControllers.acceptOrRejectRentalRequest,
+);
 
 export const LandlordRouter = router;

@@ -6,11 +6,11 @@ import httpStatus from "http-status";
 
 const loginUser = catchAsync(async (req, res) => {
   const result = await authServices.loginUser(req.body);
-  const { accessToken, jwtPayload } = result;
+  const { accessToken, role } = result;
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: `Logged in ${jwtPayload?.role} successfully.`,
+    message: `Logged in ${role} successfully.`,
     data: { accessToken },
   });
 });

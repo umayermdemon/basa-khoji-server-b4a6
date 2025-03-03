@@ -39,13 +39,14 @@ const loginUser = async (payload: TLoginUser) => {
     email: user?.email,
     role: user?.role,
   };
+  const role = user?.role;
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_token as string,
     config.jwt_access_expires_in as string,
   );
 
-  return { accessToken, jwtPayload };
+  return { accessToken, role };
 };
 
 export const authServices = { loginUser };

@@ -62,6 +62,21 @@ const getAllRentalHouseByLandlord = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const acceptOrRejectRentalRequest = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const result = await LandlordServices.AcceptOrRejectRentalRequest(
+    id,
+    updatedData,
+    req?.user,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Rental Request ${updatedData?.status} `,
+    data: result,
+  });
+});
 
 export const LandlordControllers = {
   createRentalHouse,
@@ -69,4 +84,5 @@ export const LandlordControllers = {
   updateRentalHouse,
   deleteUser,
   getAllRentalHouseByLandlord,
+  acceptOrRejectRentalRequest,
 };

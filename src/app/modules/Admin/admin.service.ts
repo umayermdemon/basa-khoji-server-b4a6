@@ -47,7 +47,7 @@ const GetAllRentalHouseFromDb = async () => {
   const result = await RentalHouseListing.find();
   return result;
 };
-const UpdateListingIntoDb = async (
+const UpdateRentalHouseIntoDb = async (
   id: string,
   updatedData: Partial<IRentalHouse>,
 ) => {
@@ -76,5 +76,5 @@ export const AdminServices = {
   UpdateUserRoleIntoDb,
   DeleteUserFromDb,
   GetAllRentalHouseFromDb,
-  UpdateListingIntoDb,
+  UpdateRentalHouseIntoDb,
 };

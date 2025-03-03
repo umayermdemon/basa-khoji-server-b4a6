@@ -8,6 +8,6 @@ router.get("/users", auth("admin"), AdminControllers.getAllUser);
 router.put("/users/:id", auth("admin"), AdminControllers.updateUserRole);
 router.delete("/user/:id", auth("admin"), AdminControllers.deleteUser);
 router.get("/listings", auth("admin"), AdminControllers.getAllRentalHouse);
-router.put("/listings/:id", AdminControllers.updateListing);
+router.put("/listings/:id", AdminControllers.updateRentalHouse);
 
 export const AdminRouter = router;

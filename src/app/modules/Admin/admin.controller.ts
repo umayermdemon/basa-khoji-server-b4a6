@@ -43,10 +43,10 @@ const getAllRentalHouse = catchAsync(async (req, res) => {
   });
 });
 
-const updateListing = catchAsync(async (req, res) => {
+const updateRentalHouse = catchAsync(async (req, res) => {
   const id = req.params.id;
   const updatedData = req.body;
-  const result = await AdminServices.UpdateListingIntoDb(id, updatedData);
+  const result = await AdminServices.UpdateRentalHouseIntoDb(id, updatedData);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -60,5 +60,5 @@ export const AdminControllers = {
   updateUserRole,
   deleteUser,
   getAllRentalHouse,
-  updateListing,
+  updateRentalHouse,
 };

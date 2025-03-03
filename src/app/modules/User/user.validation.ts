@@ -2,7 +2,6 @@ import { z } from "zod";
 
 const userValidationSchema = z.object({
   body: z.object({
-    name: z.string().min(1, "Name is required"),
     userName: z.string().min(1, "Username is required"),
     email: z.string().email("Invalid type of email"),
     phoneNumber: z.string().regex(/^\+?\d{10,15}$/, "Invalid phone number"),

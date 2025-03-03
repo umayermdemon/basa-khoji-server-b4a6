@@ -7,6 +7,7 @@ import { IImageFiles } from "../../interface/IImageFile";
 import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 import { JwtPayload } from "jsonwebtoken";
 import { RentalRequest } from "../Tenants/tenants.model";
+import { IRentalRequest } from "../Tenants/tenants.interface";
 
 const CreateRentalHouseIntoDb = async (
   payload: IRentalHouse,
@@ -101,6 +102,52 @@ const GetAllRentalHouseByLandlordFromDb = async (currentUser: JwtPayload) => {
   );
   return listingId;
 };
+const AcceptOrRejectRentalRequest = async (
+  id: string,
+  updatedData: Partial<IRentalRequest>,
+  currentUser: JwtPayload,
+) => {
+  const isExistUser = await User.findOne({ email: currentUser?.email });
+
+  if (!isExistUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "Landlord not found.");
+  }
+  const allowedFields = ["status"];
+  const updateKeys = Object.keys(updatedData);
+
+  if (updateKeys.some(key => !allowedFields.includes(key))) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Only the 'status' field can be updated.",
+    );
+  }
+  const isExistRentalRequest = await RentalRequest.findById(id);
+  if (!isExistRentalRequest) {
+    throw new AppError(httpStatus.NOT_FOUND, "Rental request not found!");
+  }
+  const isExistRentalHouse = await RentalHouseListing.findById({
+    _id: isExistRentalRequest?.listingId,
+  });
+  if (!isExistRentalHouse) {
+    throw new AppError(httpStatus.NOT_FOUND, "Rental house not found!");
+  }
+  const isMatched = isExistRentalHouse?.landlordId !== isExistUser?._id;
+  if (!isMatched) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User not matched");
+  }
+  console.log(isMatched);
+  const result = await RentalRequest.updateOne({ _id: id }, updatedData, {
+    runValidators: true,
+  });
+  if (result?.modifiedCount === 0) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "Rental request not found or no changes made",
+    );
+  }
+  return await RentalRequest.findById(id);
+  // return result;
+};
 
 export const LandlordServices = {
   CreateRentalHouseIntoDb,
@@ -108,4 +155,5 @@ export const LandlordServices = {
   UpdateRentalHouseIntoDb,
   DeleteRentalHouseFromDb,
   GetAllRentalHouseByLandlordFromDb,
+  AcceptOrRejectRentalRequest,
 };

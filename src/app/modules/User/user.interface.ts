@@ -3,7 +3,6 @@ import { Model } from "mongoose";
 import { userRole } from "../Auth/auth.const";
 
 export interface IUser {
-  name: string;
   userName: string;
   email: string;
   phoneNumber: string;
