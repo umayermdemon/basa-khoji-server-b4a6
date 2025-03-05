@@ -23,6 +23,17 @@ const updateUserRole = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updateUserStatus = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const updatedStatus = req.body;
+  const result = await AdminServices.UpdateUserStatusIntoDb(id, updatedStatus);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User status updated successfully",
+    data: result,
+  });
+});
 const deleteUser = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await AdminServices.DeleteUserFromDb(id);
@@ -61,4 +72,5 @@ export const AdminControllers = {
   deleteUser,
   getAllRentalHouse,
   updateRentalHouse,
+  updateUserStatus,
 };

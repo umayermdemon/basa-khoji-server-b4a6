@@ -15,7 +15,7 @@ const userSchema = new Schema<IUser, UserModel>(
     phoneNumber: { type: String, required: true },
     role: {
       type: String,
-      enum: ["tenant", "landlord"],
+      enum: ["tenant", "landlord", "admin"],
       required: true,
     },
     status: {

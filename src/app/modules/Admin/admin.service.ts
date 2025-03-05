@@ -22,6 +22,19 @@ const UpdateUserRoleIntoDb = async (
       "Only the 'role' field can be updated.",
     );
   }
+  const isExistUser = await User.findById(id);
+  if (!isExistUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+  if (isExistUser?.role === "admin") {
+    throw new AppError(httpStatus.BAD_REQUEST, "Admin role cannot be updated.");
+  }
+  if (isExistUser?.status === "suspended") {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Suspended accounts role cannot be updated. ",
+    );
+  }
   const result = await User.updateOne({ _id: id }, updatedRole, {
     runValidators: true,
   });
@@ -33,8 +46,64 @@ const UpdateUserRoleIntoDb = async (
   }
   return await User.findById(id);
 };
+const UpdateUserStatusIntoDb = async (
+  id: string,
+  updatedStatus: Partial<IUser>,
+) => {
+  const allowedFields = ["status"];
+  const updateKeys = Object.keys(updatedStatus);
+
+  if (updateKeys.some(key => !allowedFields.includes(key))) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Only the 'status' field can be updated.",
+    );
+  }
+  const isExistUser = await User.findById(id);
+  if (!isExistUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+  if (isExistUser?.role === "admin") {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Admin status cannot be updated.",
+    );
+  }
+  if (isExistUser?.status === "suspended") {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Suspended accounts status cannot be updated. ",
+    );
+  }
+  const result = await User.updateOne({ _id: id }, updatedStatus, {
+    runValidators: true,
+  });
+  if (result?.modifiedCount === 0) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "User not found or no changes made",
+    );
+  }
+  return await User.findById(id);
+};
 const DeleteUserFromDb = async (id: string) => {
-  const result = await User.deleteOne({ _id: id });
+  const isExistUser = await User.findById(id);
+  if (!isExistUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+  if (isExistUser?.role === "admin") {
+    throw new AppError(httpStatus.BAD_REQUEST, "Admin cannot be deleted.");
+  }
+  if (isExistUser?.status !== "suspended") {
+    const formattedStatus =
+      isExistUser?.status.charAt(0).toUpperCase() +
+      isExistUser?.status.slice(1);
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      ` Only suspended accounts can be deleted. ${formattedStatus} accounts cannot be removed.`,
+    );
+  }
+  const result = await User.deleteOne({ _id: isExistUser?._id });
   if (result?.deletedCount === 0) {
     throw new AppError(
       httpStatus.NOT_FOUND,
@@ -77,4 +146,5 @@ export const AdminServices = {
   DeleteUserFromDb,
   GetAllRentalHouseFromDb,
   UpdateRentalHouseIntoDb,
+  UpdateUserStatusIntoDb,
 };

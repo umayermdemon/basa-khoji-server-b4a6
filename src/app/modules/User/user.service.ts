@@ -18,7 +18,6 @@ const CreateUserIntoDb = async (payload: IUser) => {
       );
     }
     const isExistUserName = await User.findOne({ userName });
-    console.log({ isExistUserName });
     if (isExistUserName) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
@@ -26,7 +25,6 @@ const CreateUserIntoDb = async (payload: IUser) => {
       );
     }
     const newUser = await User.create([payload], { session });
-    console.log({ newUser });
     if (!newUser) {
       throw new AppError(httpStatus.BAD_REQUEST, "User created failed");
     }
@@ -36,13 +34,24 @@ const CreateUserIntoDb = async (payload: IUser) => {
       email: newUser[0]?.email,
       password: payload?.password as string,
     });
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
-    console.log(error);
+    throw new AppError(httpStatus.BAD_REQUEST, error?.message);
   }
+};
+
+// get me
+const getMe = async (email: string) => {
+  const result = await User.findOne({ email });
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  return result;
 };
 
 export const UserServices = {
   CreateUserIntoDb,
+  getMe,
 };

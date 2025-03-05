@@ -7,7 +7,7 @@ export interface IUser {
   email: string;
   phoneNumber: string;
   password: string;
-  role: "tenant" | "landlord";
+  role: "tenant" | "landlord" | "admin";
   status: "active" | "inactive" | "suspended";
 }
 
