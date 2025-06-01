@@ -15,7 +15,11 @@ router.put(
   AdminControllers.updateUserStatus,
 );
 router.delete("/user/:id", auth("admin"), AdminControllers.deleteUser);
-router.get("/listings", auth("admin"), AdminControllers.getAllRentalHouse);
+router.get(
+  "/listings",
+  auth("admin", "landlord", "tenant"),
+  AdminControllers.getAllRentalHouse,
+);
 router.put("/listings/:id", AdminControllers.updateRentalHouse);
 
 export const AdminRouter = router;

@@ -14,6 +14,23 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
+  if (payload?.email) {
+    if (user?.email !== payload?.email) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Please provide valid email address!",
+      );
+    }
+  }
+  if (payload?.userName) {
+    if (user?.userName !== payload?.userName) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Please provide valid user name!",
+      );
+    }
+  }
+
   const isActive = user?.status;
   const statusMessages = {
     inactive: "This user account is inactive. Please contact support.",

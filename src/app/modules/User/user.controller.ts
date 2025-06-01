@@ -14,6 +14,17 @@ const createUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const getSingleUser = catchAsync(async (req, res) => {
+  const id = req?.params?.id;
+  const result = await UserServices.GetSingleUserFromDb(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User is retrieved successfully",
+    data: result,
+  });
+});
 // get me
 const getMe = catchAsync(async (req, res) => {
   const { email } = req.user;
@@ -29,4 +40,5 @@ const getMe = catchAsync(async (req, res) => {
 export const UserControllers = {
   createUser,
   getMe,
+  getSingleUser,
 };

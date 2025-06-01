@@ -21,6 +21,8 @@ const rentalRequestSchema = new Schema<IRentalRequest>(
       default: "pending",
     },
     additionalMessage: { type: String },
+    moveInDate: { type: Date },
+    rentalDuration: { type: Number },
   },
   { timestamps: true },
 );

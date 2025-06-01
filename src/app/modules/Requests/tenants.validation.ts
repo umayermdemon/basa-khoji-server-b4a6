@@ -16,6 +16,13 @@ const rentalRequestValidationSchema = z.object({
     landlordPhone: z.string().optional(),
     paymentStatus: z.enum(["pending", "paid", "failed"]).optional(),
     additionalMessage: z.string().optional(),
+    moveInDate: z.string().refine(date => !isNaN(Date.parse(date)), {
+      message: "Invalid date format",
+    }),
+    rentalDuration: z
+      .number()
+      .int()
+      .positive("Rental Duration must be a positive integer"),
   }),
 });
 

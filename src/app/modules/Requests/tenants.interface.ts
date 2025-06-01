@@ -7,4 +7,6 @@ export interface IRentalRequest {
   landlordPhone?: string;
   paymentStatus?: "pending" | "paid" | "failed";
   additionalMessage?: string;
+  moveInDate: Date;
+  rentalDuration: number;
 }

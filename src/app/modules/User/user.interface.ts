@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { userRole } from "../Auth/auth.const";
 
 export interface IUser {
+  _id: Types.ObjectId;
   userName: string;
   email: string;
   phoneNumber: string;

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IRentalHouse } from "./landlord.interface";
+import { IRentalHouse } from "./rental-house.interface";
 
 const listingSchema = new Schema<IRentalHouse>(
   {

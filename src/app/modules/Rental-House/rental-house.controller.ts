@@ -1,11 +1,11 @@
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
-import { LandlordServices } from "./landlord.service";
+import { RentalHouseServices } from "./rental-house.service";
 import { IImageFiles } from "../../interface/IImageFile";
 
 const createRentalHouse = catchAsync(async (req, res) => {
-  const result = await LandlordServices.CreateRentalHouseIntoDb(
+  const result = await RentalHouseServices.createRentalHouseIntoDb(
     req.body,
     req.files as IImageFiles,
     req?.user,
@@ -17,8 +17,10 @@ const createRentalHouse = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const getAllRentalHouse = catchAsync(async (req, res) => {
-  const result = await LandlordServices.GetAllRentalHouseFromDb();
+const getAllRentalHouseFromDbByCreator = catchAsync(async (req, res) => {
+  const result = await RentalHouseServices.getAllRentalHouseFromDbByCreator(
+    req?.user,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,10 +29,31 @@ const getAllRentalHouse = catchAsync(async (req, res) => {
   });
 });
 
+const getAllRentalHouse = catchAsync(async (req, res) => {
+  const result = await RentalHouseServices.getAllRentalHouseFromDb();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Rental houses are retrieved successfully",
+    data: result,
+  });
+});
+
+const getSingleRentalHouse = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await RentalHouseServices.getSingleRentalHouseFromDb(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Rental house is retrieved successfully",
+    data: result,
+  });
+});
+
 const updateRentalHouse = catchAsync(async (req, res) => {
   const id = req.params.id;
   const updatedData = req.body;
-  const result = await LandlordServices.UpdateRentalHouseIntoDb(
+  const result = await RentalHouseServices.updateRentalHouseIntoDb(
     id,
     updatedData,
   );
@@ -41,9 +64,9 @@ const updateRentalHouse = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const deleteUser = catchAsync(async (req, res) => {
+const deleteRentalHouse = catchAsync(async (req, res) => {
   const id = req.params.id;
-  const result = await LandlordServices.DeleteRentalHouseFromDb(id);
+  const result = await RentalHouseServices.deleteRentalHouseFromDb(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -51,21 +74,21 @@ const deleteUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const getAllRentalHouseByLandlord = catchAsync(async (req, res) => {
-  const result = await LandlordServices.GetAllRentalHouseByLandlordFromDb(
+const getAllRentalRequestForLandlord = catchAsync(async (req, res) => {
+  const result = await RentalHouseServices.getAllRentalRequestForLandlordFromDb(
     req?.user,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Rental houses are retrieved successfully",
+    message: "Rental requests are retrieved successfully",
     data: result,
   });
 });
 const acceptOrRejectRentalRequest = catchAsync(async (req, res) => {
   const id = req.params.id;
   const updatedData = req.body;
-  const result = await LandlordServices.AcceptOrRejectRentalRequest(
+  const result = await RentalHouseServices.acceptOrRejectRentalRequest(
     id,
     updatedData,
     req?.user,
@@ -78,11 +101,13 @@ const acceptOrRejectRentalRequest = catchAsync(async (req, res) => {
   });
 });
 
-export const LandlordControllers = {
+export const RentalHouseControllers = {
   createRentalHouse,
-  getAllRentalHouse,
+  getAllRentalHouseFromDbByCreator,
   updateRentalHouse,
-  deleteUser,
-  getAllRentalHouseByLandlord,
+  deleteRentalHouse,
+  getAllRentalRequestForLandlord,
   acceptOrRejectRentalRequest,
+  getSingleRentalHouse,
+  getAllRentalHouse,
 };

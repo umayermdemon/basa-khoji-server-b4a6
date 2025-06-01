@@ -4,6 +4,7 @@ import { authServices } from "../Auth/auth.service";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import httpStatus from "http-status";
+import { RentalHouseListing } from "../Rental-House/rental-house.model";
 const CreateUserIntoDb = async (payload: IUser) => {
   const email = payload?.email;
   const userName = payload?.userName;
@@ -40,7 +41,10 @@ const CreateUserIntoDb = async (payload: IUser) => {
     throw new AppError(httpStatus.BAD_REQUEST, error?.message);
   }
 };
-
+const GetSingleUserFromDb = async (id: string) => {
+  const result = await User.findById(id);
+  return result;
+};
 // get me
 const getMe = async (email: string) => {
   const result = await User.findOne({ email });
@@ -54,4 +58,5 @@ const getMe = async (email: string) => {
 export const UserServices = {
   CreateUserIntoDb,
   getMe,
+  GetSingleUserFromDb,
 };

@@ -2,8 +2,9 @@ import { Router } from "express";
 import { AuthRouter } from "../modules/Auth/auth.route";
 import { UserRouter } from "../modules/User/user.route";
 import { AdminRouter } from "../modules/Admin/admin.route";
-import { LandlordRouter } from "../modules/Landlords/landlord.route";
-import { TenantsRouter } from "../modules/Tenants/tenants.route";
+import { RentalHouseRouter } from "../modules/Rental-House/rental-house.route";
+import { TenantsRouter } from "../modules/Requests/tenants.route";
+import { BlogRouter } from "../modules/Blog/blog.route";
 
 const router = Router();
 
@@ -21,12 +22,16 @@ const routes = [
     route: AdminRouter,
   },
   {
-    path: "/landlords",
-    route: LandlordRouter,
+    path: "/rental-house",
+    route: RentalHouseRouter,
   },
   {
-    path: "/tenants",
+    path: "/rental-request",
     route: TenantsRouter,
+  },
+  {
+    path: "/blogs",
+    route: BlogRouter,
   },
 ];
 

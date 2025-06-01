@@ -1,15 +1,15 @@
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
-import { RentalHouseListing } from "./landlord.model";
-import { IRentalHouse } from "./landlord.interface";
+import { RentalHouseListing } from "./rental-house.model";
+import { IRentalHouse } from "./rental-house.interface";
 import { User } from "../User/user.model";
 import { IImageFiles } from "../../interface/IImageFile";
-import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 import { JwtPayload } from "jsonwebtoken";
-import { RentalRequest } from "../Tenants/tenants.model";
-import { IRentalRequest } from "../Tenants/tenants.interface";
+import { RentalRequest } from "../Requests/tenants.model";
+import { IRentalRequest } from "../Requests/tenants.interface";
+import { get } from "mongoose";
 
-const CreateRentalHouseIntoDb = async (
+const createRentalHouseIntoDb = async (
   payload: IRentalHouse,
   houseImages: IImageFiles,
   currentUser: JwtPayload,
@@ -22,17 +22,7 @@ const CreateRentalHouseIntoDb = async (
     );
   }
 
-  const uploadedImages = await Promise.all(
-    images.map(async image => {
-      const uploadResult = await sendImageToCloudinary(
-        image.originalname,
-        image.path,
-      );
-      return uploadResult;
-    }),
-  );
-  const secure_url = uploadedImages.map((img: any) => img.secure_url);
-  payload.images = secure_url;
+  payload.images = images.map(image => image.path);
 
   const email = currentUser?.email;
 
@@ -52,12 +42,28 @@ const CreateRentalHouseIntoDb = async (
   }
   return result;
 };
-const GetAllRentalHouseFromDb = async () => {
+const getAllRentalHouseFromDbByCreator = async (currentUser: JwtPayload) => {
+  const email = currentUser?.email;
+  const isExistUser = await User.findOne({ email });
+
+  if (!isExistUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "Landlord not found!");
+  }
+  const result = await RentalHouseListing.find({
+    landlordId: isExistUser?._id,
+  });
+  return result;
+};
+const getAllRentalHouseFromDb = async () => {
   const result = await RentalHouseListing.find();
   return result;
 };
+const getSingleRentalHouseFromDb = async (id: string) => {
+  const result = await RentalHouseListing.findById(id);
+  return result;
+};
 
-const UpdateRentalHouseIntoDb = async (
+const updateRentalHouseIntoDb = async (
   id: string,
   payload: Partial<IRentalHouse>,
 ) => {
@@ -72,7 +78,7 @@ const UpdateRentalHouseIntoDb = async (
   }
   return await RentalHouseListing.findById(id);
 };
-const DeleteRentalHouseFromDb = async (id: string) => {
+const deleteRentalHouseFromDb = async (id: string) => {
   const result = await RentalHouseListing.deleteOne({ _id: id });
   if (result?.deletedCount === 0) {
     throw new AppError(
@@ -82,7 +88,9 @@ const DeleteRentalHouseFromDb = async (id: string) => {
   }
   return null;
 };
-const GetAllRentalHouseByLandlordFromDb = async (currentUser: JwtPayload) => {
+const getAllRentalRequestForLandlordFromDb = async (
+  currentUser: JwtPayload,
+) => {
   const isExistUser = await User.findOne({ email: currentUser?.email });
 
   if (!isExistUser) {
@@ -91,18 +99,18 @@ const GetAllRentalHouseByLandlordFromDb = async (currentUser: JwtPayload) => {
   const isExistRentalHouses = await RentalHouseListing.find({
     landlordId: isExistUser?._id,
   });
+
   const listingId = await Promise.all(
     isExistRentalHouses.map(async rentalHouse => {
-      console.log(rentalHouse?._id);
       const result = await RentalRequest.find({
         listingId: rentalHouse?._id,
       });
       return result;
     }),
   );
-  return listingId;
+  return listingId[0];
 };
-const AcceptOrRejectRentalRequest = async (
+const acceptOrRejectRentalRequest = async (
   id: string,
   updatedData: Partial<IRentalRequest>,
   currentUser: JwtPayload,
@@ -112,18 +120,36 @@ const AcceptOrRejectRentalRequest = async (
   if (!isExistUser) {
     throw new AppError(httpStatus.NOT_FOUND, "Landlord not found.");
   }
-  const allowedFields = ["status"];
+  const allowedFields = ["status", "landlordPhone"];
   const updateKeys = Object.keys(updatedData);
 
   if (updateKeys.some(key => !allowedFields.includes(key))) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "Only the 'status' field can be updated.",
+      "Only the 'status' & 'landlordPhone' field can be updated.",
     );
   }
   const isExistRentalRequest = await RentalRequest.findById(id);
   if (!isExistRentalRequest) {
     throw new AppError(httpStatus.NOT_FOUND, "Rental request not found!");
+  }
+  if (
+    isExistRentalRequest?.status === "approved" &&
+    updatedData.status === "pending"
+  ) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Approved status cannot be pending",
+    );
+  }
+  if (
+    isExistRentalRequest?.paymentStatus === "paid" &&
+    updatedData.status === "rejected"
+  ) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Payment status cannot be rejected",
+    );
   }
   const isExistRentalHouse = await RentalHouseListing.findById({
     _id: isExistRentalRequest?.listingId,
@@ -135,7 +161,11 @@ const AcceptOrRejectRentalRequest = async (
   if (!isMatched) {
     throw new AppError(httpStatus.BAD_REQUEST, "User not matched");
   }
-  console.log(isMatched);
+
+  if (updatedData.status === "approved") {
+    updatedData.landlordPhone = updatedData.landlordPhone;
+  }
+
   const result = await RentalRequest.updateOne({ _id: id }, updatedData, {
     runValidators: true,
   });
@@ -146,14 +176,15 @@ const AcceptOrRejectRentalRequest = async (
     );
   }
   return await RentalRequest.findById(id);
-  // return result;
 };
 
-export const LandlordServices = {
-  CreateRentalHouseIntoDb,
-  GetAllRentalHouseFromDb,
-  UpdateRentalHouseIntoDb,
-  DeleteRentalHouseFromDb,
-  GetAllRentalHouseByLandlordFromDb,
-  AcceptOrRejectRentalRequest,
+export const RentalHouseServices = {
+  createRentalHouseIntoDb,
+  getAllRentalHouseFromDbByCreator,
+  updateRentalHouseIntoDb,
+  deleteRentalHouseFromDb,
+  getAllRentalRequestForLandlordFromDb,
+  acceptOrRejectRentalRequest,
+  getSingleRentalHouseFromDb,
+  getAllRentalHouseFromDb,
 };

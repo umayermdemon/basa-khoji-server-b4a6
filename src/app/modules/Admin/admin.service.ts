@@ -1,12 +1,12 @@
 import AppError from "../../errors/AppError";
-import { IRentalHouse } from "../Landlords/landlord.interface";
-import { RentalHouseListing } from "../Landlords/landlord.model";
+import { IRentalHouse } from "../Rental-House/rental-house.interface";
+import { RentalHouseListing } from "../Rental-House/rental-house.model";
 import { IUser } from "../User/user.interface";
 import { User } from "../User/user.model";
 import httpStatus from "http-status";
 
 const GetAllUserFromDb = async () => {
-  const result = await User.find();
+  const result = await User.find({ role: { $in: ["landlord", "tenant"] } });
   return result;
 };
 const UpdateUserRoleIntoDb = async (

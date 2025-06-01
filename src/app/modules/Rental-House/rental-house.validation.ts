@@ -19,12 +19,10 @@ const rentalHouseValidationSchema = z.object({
       .number()
       .int()
       .positive("Bathrooms must be a positive integer"),
-    // landlordId: z.string().min(1, "Landlord ID is required"),
     availableFrom: z.string().refine(date => !isNaN(Date.parse(date)), {
       message: "Invalid date format",
     }),
     amenities: z.array(z.string()).optional(),
-    isAvailable: z.boolean(),
   }),
 });
 

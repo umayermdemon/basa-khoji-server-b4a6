@@ -1,0 +1,296 @@
+[
+  {
+    "title": "Luxurious Apartment in Dhaka City",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1212",
+      "address": "Banani, Block B, Road 12"
+    },
+    "description": "This luxurious 3-bedroom apartment is located in the heart of Dhaka, in the prime area of Banani. Designed for modern living, it features a spacious living room, well-lit interiors, and high-quality furnishings. The apartment includes 3 bathrooms, a well-equipped kitchen, and large windows allowing ample natural light. The building is secured with 24/7 security and offers facilities like an elevator and a gym. Conveniently situated near shopping centers, restaurants, and business districts, this apartment ensures an easy and comfortable lifestyle. Rent is set at BDT 45,000 per month, making it a perfect choice for professionals and families. Available from April 1, 2025.",
+    "rentAmount": 45000,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "images": ["banani1.jpg", "banani2.jpg"],
+    "landlordId": "65a7e9d9f0a23b001c4e56a1",
+    "availableFrom": "2025-04-01T00:00:00Z",
+    "amenities": ["Elevator", "Security", "Gym"],
+    "isAvailable": true
+  },
+  {
+    "title": "Well-Furnished Flat in Chattogram City Center",
+    "location": {
+      "city": "Chattogram",
+      "state": "Chattogram Division",
+      "country": "Bangladesh",
+      "zipCode": "4000",
+      "address": "Garibullah Shah Mazar Road"
+    },
+    "description": "Located in the bustling city center of Chattogram, this well-furnished 2-bedroom flat is perfect for those looking for a comfortable and convenient lifestyle. The flat features a modern interior, fully furnished bedrooms, and a spacious living area. The 2 bathrooms are equipped with high-end fittings, ensuring a comfortable experience. The building offers essential amenities such as parking, an elevator, and WiFi, making it an excellent option for professionals and small families. Close to business hubs, schools, and shopping malls, this property ensures easy access to daily necessities. Rent is set at BDT 35,000 per month. Available from March 15, 2025.",
+    "rentAmount": 35000,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "images": ["ctg1.jpg", "ctg2.jpg"],
+    "landlordId": "65a7e9d9f0a23b001c4e56a2",
+    "availableFrom": "2025-03-15T00:00:00Z",
+    "amenities": ["Parking", "Elevator", "WiFi"],
+    "isAvailable": true
+  },
+  {
+    "title": "Resort-Style Villa by Cox’s Bazar Beach",
+    "location": {
+      "city": "Cox’s Bazar",
+      "state": "Chattogram Division",
+      "country": "Bangladesh"
+    },
+    "description": "Experience the ultimate luxury in this stunning 4-bedroom resort-style villa near Cox’s Bazar Beach. This villa offers breathtaking sea views and a private swimming pool, making it a perfect retreat for families or vacation rentals. The interior is elegantly designed with high-quality materials, spacious bedrooms, and modern bathrooms. A fully equipped kitchen, large balconies, and a beautifully landscaped garden enhance the comfort of this property. Additionally, it includes a secure garage and ample parking space. Situated near local attractions, this villa provides easy access to entertainment and leisure activities. Rent is BDT 120,000 per month. Currently unavailable but will be available from May 1, 2025.",
+    "rentAmount": 120000,
+    "bedrooms": 4,
+    "bathrooms": 4,
+    "images": ["cox1.jpg", "cox2.jpg"],
+    "landlordId": "65a7e9d9f0a23b001c4e56a3",
+    "availableFrom": "2025-05-01T00:00:00Z",
+    "amenities": ["Swimming Pool", "Sea View", "Garage"],
+    "isAvailable": false
+  },
+  {
+    "title": "Modern Apartment in Gulshan",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1212",
+      "address": "House 24, Road 113, Gulshan 2, Dhaka"
+    },
+    "description": "This stunning modern apartment in Gulshan 2, Dhaka, offers a luxurious living experience in the heart of the city. Featuring high-end finishing, spacious rooms, and an open floor plan, this apartment is perfect for families and professionals. The property includes three bedrooms, each with an attached bathroom, a large living area with full-length glass windows that provide ample natural light, and a beautifully designed modular kitchen. The apartment complex offers 24/7 security, a well-equipped gym, and underground parking. Located in a prime area, residents have easy access to top schools, hospitals, and shopping malls. Whether you are looking for a comfortable home or an investment property, this apartment is an excellent choice. The neighborhood is well-maintained, with plenty of greenery, walking spaces, and high-end restaurants nearby. Public transport is readily available, and the area is known for its safety and exclusivity. Experience the best of city living in this beautifully crafted home.",
+    "rentAmount": 75000,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "images": ["https://example.com/images/gulshan_apartment.jpg"],
+    "landlordId": "65aef12345abcd6789ef0123",
+    "availableFrom": "2025-04-01T00:00:00Z",
+    "amenities": [
+      "Gym",
+      "Swimming Pool",
+      "24/7 Security",
+      "Parking",
+      "Lift",
+      "Power Backup"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Spacious Duplex in Uttara",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1230",
+      "address": "Sector 4, Uttara, Dhaka"
+    },
+    "description": "Located in the peaceful residential area of Uttara, this spacious duplex offers the perfect blend of comfort and style. Designed for families looking for a serene yet modern lifestyle, the home boasts four bedrooms, a massive living and dining space, a fully equipped kitchen, and a private balcony with a scenic view. The house is semi-furnished, featuring built-in wardrobes, high-quality marble flooring, and large windows for ample ventilation. The property is situated within a secure gated community with 24/7 security and CCTV surveillance. Nearby, you will find reputable schools, supermarkets, hospitals, and recreational parks, making it an ideal place to raise a family. Uttara’s connectivity with major roads and its proximity to the airport makes commuting hassle-free. If you are looking for a premium rental property in a calm, well-developed neighborhood, this duplex is a fantastic choice. The property also includes a dedicated parking spot, solar power backup, and access to a community hall.",
+    "rentAmount": 65000,
+    "bedrooms": 4,
+    "bathrooms": 4,
+    "images": ["https://example.com/images/uttara_duplex.jpg"],
+    "landlordId": "65aef56789abcd6789ef0456",
+    "availableFrom": "2025-05-01T00:00:00Z",
+    "amenities": [
+      "Parking",
+      "Security",
+      "Solar Power",
+      "Playground",
+      "Community Hall"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Elegant Condo in Banani",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1213",
+      "address": "Block C, Banani, Dhaka"
+    },
+    "description": "This beautifully designed condo in Banani is the perfect choice for urban living. It offers a spacious and stylish interior with three large bedrooms, a modern kitchen, and a cozy living area. The apartment has a sleek contemporary design with wooden flooring, large windows, and ample storage space. The condo complex provides 24/7 security, CCTV surveillance, and a fully equipped fitness center. The area is bustling with cafes, shopping malls, and international restaurants, making it an excellent choice for those who enjoy city life. Transportation is convenient, with easy access to major roads and public transport options. The property is located near Banani Lake, providing a peaceful retreat in the busy city. The secure environment and well-maintained facilities make it a great option for families and working professionals.",
+    "rentAmount": 72000,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "images": ["https://example.com/images/banani_condo.jpg"],
+    "landlordId": "65aef67890abcd6789ef0678",
+    "availableFrom": "2025-06-01T00:00:00Z",
+    "amenities": [
+      "Fitness Center",
+      "Security",
+      "Parking",
+      "Playground",
+      "Garden"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Family House in Dhanmondi",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1209",
+      "address": "Road 5, Dhanmondi, Dhaka"
+    },
+    "description": "Situated in the heart of Dhanmondi, this family-friendly house offers comfort and convenience. The house features four bedrooms, a large living room, a spacious kitchen, and a private terrace. The neighborhood is known for its top-rated schools, hospitals, and recreational centers, making it ideal for families. The property is surrounded by lush greenery and has a private garden where kids can play safely. Security is a top priority, with CCTV cameras and gated access. Public transport is readily available, and everything you need is just a short walk away. The spacious interiors, high ceilings, and natural lighting add to the home’s charm. This house is perfect for anyone looking for a quiet, comfortable home in a prime location.",
+    "rentAmount": 85000,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "images": ["https://example.com/images/dhanmondi_house.jpg"],
+    "landlordId": "65aef78901abcd6789ef0789",
+    "availableFrom": "2025-07-01T00:00:00Z",
+    "amenities": ["Garden", "Terrace", "Security", "Garage", "Community Park"],
+    "isAvailable": true
+  },
+  {
+    "title": "Luxury Penthouse in Baridhara",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1212",
+      "address": "Block J, Baridhara Diplomatic Zone, Dhaka"
+    },
+    "description": "This luxurious penthouse in Baridhara Diplomatic Zone offers unparalleled elegance and privacy. Featuring five spacious bedrooms, a rooftop terrace, and floor-to-ceiling windows, this penthouse is a dream home for those who appreciate comfort and style. The modern open-concept kitchen, along with a fully furnished living space, provides a perfect setting for entertainment. The penthouse includes premium amenities such as a private lift, a rooftop garden, and access to a swimming pool. Located in one of Dhaka’s most prestigious neighborhoods, the property is close to embassies, international schools, and fine dining restaurants. It also provides 24/7 security with CCTV surveillance. If you’re looking for an exclusive residence in Dhaka, this penthouse is the ultimate choice.",
+    "rentAmount": 180000,
+    "bedrooms": 5,
+    "bathrooms": 5,
+    "images": ["https://example.com/images/baridhara_penthouse.jpg"],
+    "landlordId": "65aef89012abcd6789ef0890",
+    "availableFrom": "2025-08-01T00:00:00Z",
+    "amenities": [
+      "Swimming Pool",
+      "Rooftop Garden",
+      "Private Lift",
+      "Security",
+      "Parking"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Affordable Studio Apartment in Bashundhara",
+    "location": {
+      "city": "Dhaka",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1229",
+      "address": "Block D, Bashundhara R/A, Dhaka"
+    },
+    "description": "This cozy studio apartment in Bashundhara Residential Area is perfect for students and young professionals. The apartment features an open-plan layout with a modern kitchenette, an attached bathroom, and a small balcony. The property is located near North South University, making it an ideal choice for students. It comes with basic furnishings, including a bed, wardrobe, and a small dining table. Security is well maintained with a 24-hour caretaker service. The area has easy access to grocery stores, restaurants, and public transport. With an affordable rent, this apartment provides a comfortable and budget-friendly living solution in Dhaka’s growing residential hub.",
+    "rentAmount": 22000,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "images": ["https://example.com/images/bashundhara_studio.jpg"],
+    "landlordId": "65aef90123abcd6789ef0912",
+    "availableFrom": "2025-09-01T00:00:00Z",
+    "amenities": [
+      "Security",
+      "Furnished",
+      "Balcony",
+      "Caretaker Service",
+      "Parking"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Scenic Riverside Apartment in Narayanganj",
+    "location": {
+      "city": "Narayanganj",
+      "state": "Dhaka Division",
+      "country": "Bangladesh",
+      "zipCode": "1400",
+      "address": "Riverside Road, Narayanganj"
+    },
+    "description": "This beautiful riverside apartment offers a breathtaking view of the Shitalakshya River. Located in Narayanganj, this property is perfect for those who want to enjoy a peaceful environment while still being close to the capital. The apartment features three spacious bedrooms, two bathrooms, and a modern kitchen. The large balcony overlooking the river is perfect for relaxation. Residents can enjoy nearby parks, local markets, and historic sites. The property is well secured and comes with a dedicated parking space. If you're looking for a home away from the busy city, this apartment is an excellent option.",
+    "rentAmount": 30000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "images": ["https://example.com/images/narayanganj_riverside.jpg"],
+    "landlordId": "65aef91234abcd6789ef0913",
+    "availableFrom": "2025-10-01T00:00:00Z",
+    "amenities": ["River View", "Parking", "Security", "Garden", "Playground"],
+    "isAvailable": true
+  },
+  {
+    "title": "Cozy House in Chattogram",
+    "location": {
+      "city": "Chattogram",
+      "state": "Chattogram Division",
+      "country": "Bangladesh",
+      "zipCode": "4000",
+      "address": "Halisahar, Chattogram"
+    },
+    "description": "Located in the beautiful coastal city of Chattogram, this cozy family house offers a comfortable living experience. The house features three bedrooms, two bathrooms, a spacious living area, and a front yard with a garden. The peaceful neighborhood is perfect for families, with schools, hospitals, and shopping centers within close reach. The property includes 24-hour security and a garage for parking. Enjoy the fresh sea breeze and the vibrant city life of Chattogram while staying in this well-maintained home.",
+    "rentAmount": 40000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "images": ["https://example.com/images/chattogram_house.jpg"],
+    "landlordId": "65aef92345abcd6789ef0914",
+    "availableFrom": "2025-11-01T00:00:00Z",
+    "amenities": [
+      "Garden",
+      "Security",
+      "Garage",
+      "Nearby Schools",
+      "Quiet Neighborhood"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Elegant Apartment in Sylhet",
+    "location": {
+      "city": "Sylhet",
+      "state": "Sylhet Division",
+      "country": "Bangladesh",
+      "zipCode": "3100",
+      "address": "Zindabazar, Sylhet"
+    },
+    "description": "This elegant apartment in Sylhet offers a perfect blend of traditional charm and modern convenience. Featuring three bedrooms, a spacious living area, and a modular kitchen, this apartment is designed for comfort. The property is located near major commercial hubs, making it ideal for working professionals. The apartment comes with 24-hour security, lift access, and dedicated parking. With scenic tea gardens just a short drive away, this property offers a peaceful yet vibrant living experience.",
+    "rentAmount": 35000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "images": ["https://example.com/images/sylhet_apartment.jpg"],
+    "landlordId": "65aef93456abcd6789ef0915",
+    "availableFrom": "2025-12-01T00:00:00Z",
+    "amenities": [
+      "Lift",
+      "Security",
+      "Parking",
+      "Nearby Markets",
+      "Scenic Views"
+    ],
+    "isAvailable": true
+  },
+  {
+    "title": "Luxury Villa in Cox’s Bazar",
+    "location": {
+      "city": "Cox’s Bazar",
+      "state": "Chattogram Division",
+      "country": "Bangladesh",
+      "zipCode": "4700",
+      "address": "Marine Drive Road, Cox’s Bazar"
+    },
+    "description": "Experience luxury living with this beachside villa in Cox’s Bazar. This property features five bedrooms, a large swimming pool, a garden, and direct access to the beach. Designed with high-end interiors and modern furniture, this villa is perfect for those looking for a luxurious and peaceful retreat. The villa offers breathtaking sunset views over the Bay of Bengal. With top-notch security and private parking, this property is ideal for vacationers or long-term residents who love the beach life. Enjoy the best that Bangladesh has to offer with this one-of-a-kind rental property.",
+    "rentAmount": 250000,
+    "bedrooms": 5,
+    "bathrooms": 5,
+    "images": ["https://example.com/images/coxbazar_villa.jpg"],
+    "landlordId": "65aef94567abcd6789ef0916",
+    "availableFrom": "2026-01-01T00:00:00Z",
+    "amenities": [
+      "Beachfront",
+      "Swimming Pool",
+      "Garden",
+      "Security",
+      "Parking"
+    ],
+    "isAvailable": true
+  }
+]
