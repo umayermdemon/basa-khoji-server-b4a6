@@ -14,14 +14,14 @@ app.use(cors());
 // app route
 app.use("/api", router);
 
+app.get("/", async (req, res) => {
+  res.send("BasaKhoji's server running");
+});
+
 // not found
 app.use(notFound);
 
 // global error handler
 app.use(globalErrorHandler);
-
-app.get("/", async (req, res) => {
-  res.send("BasaKhoji's server running");
-});
 
 export default app;
